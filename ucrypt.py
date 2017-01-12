@@ -18,12 +18,28 @@ def die(msg):
     print(msg, file=sys.stderr)
     sys.exit(1)
 
-class CryptoBox:
+class Ucrypt:
 
-    def __init__(self, hexkey):
-        # set up secretbox and decrypt
-        self.secretbox = nacl.secret.SecretBox(hexkey,
-                encoder=nacl.encoding.HexEncoder)
+    """
+    Example Python usage:
+
+    >>> from ucrypt import Ucrypt
+    >>> hexkey = Ucrypt().keygen()
+    >>> ucrypt = Ucrypt(hexkey)
+    >>> print (ucrypt.decrypt(ucrypt.encrypt("foo")))
+    foo
+
+    """
+
+    def __init__(self, hexkey=""):
+        if hexkey:
+            self.secretbox = nacl.secret.SecretBox(hexkey,
+                    encoder=nacl.encoding.HexEncoder)
+
+    def keygen(self):
+        hexkey = nacl.utils.random(nacl.secret.SecretBox.KEY_SIZE)
+        self.secretbox = nacl.secret.SecretBox(hexkey)
+        return (self.secretbox.encode(encoder=nacl.encoding.HexEncoder))
 
     def decrypt(self, data=""):
         try:
@@ -62,9 +78,7 @@ if __name__ == "__main__":
 
     if args.keygen:
         # generate secretkey
-        hexkey = nacl.utils.random(nacl.secret.SecretBox.KEY_SIZE)
-        secretbox = nacl.secret.SecretBox(hexkey)
-        print(secretbox.encode(encoder=nacl.encoding.HexEncoder))
+        print(Ucrypt().keygen())
         sys.exit(0)
 
     hexkey = args.key
@@ -77,7 +91,7 @@ if __name__ == "__main__":
                 "Do you need to generate a key? Try:\n\n   %s --help" % sys.argv[0])
             sys.exit(1)
 
-    cryptbox = CryptoBox(hexkey)
+    cryptbox = Ucrypt(hexkey)
 
     if not args.infile or args.infile.strip() == "-":
 	inobj = sys.stdin
