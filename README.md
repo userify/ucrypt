@@ -10,6 +10,8 @@ Obligatory disclaimer if you're using this on Userify data files..
 
 ## ! FOR OBVIOUS REASONS, BACKUP YOUR DATA DIRECTORY FIRST !
 
+Additional warnings: BACKUP BACKUP! By using these tools, you take full responsibility for their use. These tools have minimal safeguards and are intended for emergency use only. We will be unable to help you if you, for example, re-encrypt files with a different or unknown key. This is deliberately *very strong* encryption and you can paint yourself into a corner if you are not careful. (Reading the data, however, is interesting and shouldn't cause any problems, but still, please backup your `/opt/userify-server/data` and `/opt/userify-server/base_config.cfg` on a regular basis.)
+
 
 ## INSTALLATION
 
