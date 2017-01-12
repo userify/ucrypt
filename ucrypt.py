@@ -59,7 +59,10 @@ class Ucrypt:
         return self.secretbox.encrypt(data, nonce)
 
 
-if __name__ == "__main__":
+def main(args=None):
+
+    if args is None:
+        args = sys.argv[1:]
 
     parser = argparse.ArgumentParser(description="Compress and decrypt/encrypt files with NaCl and gzip.",
         epilog="\n".join(("Data will be read from STDIN and output to STDOUT.",
@@ -147,3 +150,6 @@ if __name__ == "__main__":
             outobj.write(decrypted)
     else:
         outobj.write("X25519:" + cryptbox.encrypt(zlib.compress(indata)))
+
+if __name__ == "__main__":
+    main()
