@@ -62,10 +62,10 @@ class Ucrypt:
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Compress and decrypt/encrypt files with NaCl and gzip.",
-        epilog="Data will be read from STDIN and output to STDOUT.\n" +
-        "If no key is provided, one will be read from keyfile.\n" +
-        "(keyfile file location defaults to /opt/userify-server/base_config.cfg.)\n" +
-        "If both keygen and keyfile arguments are created, a keyfile will be securely created.")
+        epilog="\n".join(("Data will be read from STDIN and output to STDOUT.",
+        "If no key is provided, one will be read from keyfile.",
+        "(keyfile file location defaults to /opt/userify-server/base_config.cfg.)",
+        "If both keygen and keyfile arguments are created, a keyfile will be securely created.")))
     parser.add_argument("-i", "--infile", help="input_file or - for STDIN", action="store")
     parser.add_argument("-o", "--outfile", help="output_file or - for STDOUT", action="store")
     parser.add_argument("--keygen", help="generate an encryption key.", action="store_true")
