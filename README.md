@@ -51,9 +51,23 @@ See disable_mfa.sh for an example use script, or, to install and execute:
 
 ## Ucrypt in your own scripts
 
+Ucrypt both compresses (with zlib) and strongly encrypts (using libsodium) your data with secure keys. You can use this within your own programs as well. A very big thank you to the developers of libsodium, NaCl, and X25519.
+
 Ucrypt is released under the MIT license so please feel free to use in your own programs, both commercial and personal.
 
-Ucrypt both compresses (with zlib) and strongly encrypts (using libsodium) your data with secure keys. You can use this within your own programs as well.
+
+## Ucrypt in your Python scripts
+
+Example Python usage:
+
+    >>> from ucrypt import Ucrypt
+    >>> hexkey = Ucrypt().keygen()
+    >>> ucrypt = Ucrypt(hexkey)
+    >>> print (ucrypt.decrypt(ucrypt.encrypt("foo")))
+    foo
+
+
+## Ucrypt in your shell scripts
 
 Here's how to use ucrypt in your own scripts (after copying ucrypt.py to /usr/bin)
 
