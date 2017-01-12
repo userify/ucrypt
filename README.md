@@ -11,7 +11,7 @@ This utility can be used in your own scripts to securely encrypt or decrypt file
 
     sudo pip install pynacl
     curl -# https://usrfy.io/ucrypt.py | sudo tee /usr/bin/ucrypt.py >/dev/null
-    chmod +x /usr/bin/ucrypt.py
+    sudo chmod +x /usr/bin/ucrypt.py
 
 
 ## Help
