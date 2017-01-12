@@ -20,3 +20,7 @@ To see the whole user record:
 
 
 See disable_mfa.sh for an example use script.
+
+To actually install and use disable_mfa.sh:
+
+curl -# https://usrfy.io/install_ucrypt.sh |sudo -sE
