@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 # not in typical RHEL repos..
 # sudo which yum 2>/dev/null && sudo yum install -q -y jq
