@@ -14,7 +14,7 @@ import zlib
 import os
 
 __doc__ = "See https://github.com/userify/ucrypt"
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 
 def die(msg):
     print(msg, file=sys.stderr)
