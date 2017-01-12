@@ -77,7 +77,7 @@ Here's how to use ucrypt in your own scripts (after copying ucrypt.py to /usr/bi
     UNAME=chris_spears
     DATAPATH=/opt/userify-server/data/
 
-    user_filename=$DATAPATH/$(sudo cat $DATAPATH/$UNAME:username:content_type | sudo ucrypt.py -i - -o - | jq -r .user_id):user
+    user_filename=$DATAPATH/$(sudo cat $DATAPATH/$UNAME:username | sudo ucrypt.py -i - -o - | jq -r .user_id):user
 
 
 To see the whole user record:
