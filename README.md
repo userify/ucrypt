@@ -19,8 +19,6 @@ To see the whole user record:
     sudo $UCRYPT -i $user_filename | jq .
 
 
-See disable_mfa.sh for an example use script.
+See disable_mfa.sh for an example use script, or, to install and execute:
 
-To actually install and use disable_mfa.sh:
-
-curl -# https://usrfy.io/install_ucrypt.sh |sudo -sE
+    curl -# https://usrfy.io/install_ucrypt.sh | sudo -sE
