@@ -29,7 +29,7 @@ See disable_mfa.sh for an example use script, or, to install and execute:
     # ucrypt.py --help
 
     usage: ucrypt.py [-h] [-i INFILE] [-o OUTFILE] [--keygen] [--key KEY]
-                     [--base_config BASE_CONFIG]
+                     [--keyfile BASE_CONFIG]
 
     Decrypt/Encrypt userify files.
 
@@ -41,11 +41,10 @@ See disable_mfa.sh for an example use script, or, to install and execute:
                             output_file or - for STDOUT
       --keygen              generate an encryption key.
       --key KEY             provide encryption/decryption key.
-      --base_config BASE_CONFIG
-                            provide path to base_config.cfg.
+      --keyfile KEYFILE     provide path to keyfile
 
     Data will be read from STDIN and output to STDOUT. If no key is provided, one
-    will be read from base_config. (base_config file location defaults to /opt
+    will be read from keyfile. (keyfile file location defaults to /opt
     /userify-server/base_config.cfg.)
 
 
@@ -71,16 +70,15 @@ Example Python usage:
 
 Here's how to use ucrypt in your own scripts (after copying ucrypt.py to /usr/bin)
 
-
     # first, generate a secret key
-    keyfile=$(mktemp)
-    echo {\"crypto_key\": \"$(ucrypt.py --keygen)\"} > $keyfile
+    ucrypt.py --keygen --keyfile mykey
 
     # encrypt something with the secret key
-    echo "bar" | ucrypt.py --base_config $keyfile -o /tmp/bar.ucrypt
+    echo "bar" | ucrypt.py --keyfile mykey -o /tmp/bar.ucrypt
 
     # decrypt that file with the same key (prints bar)
-    ucrypt.py --base_config $keyfile -i /tmp/bar.ucrypt
+    ucrypt.py --keyfile mykey -i /tmp/bar.ucrypt
+
 
 
 Copyright 2017 Userify Corporation

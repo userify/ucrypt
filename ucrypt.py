@@ -11,6 +11,7 @@ import nacl.exceptions
 import os.path
 import argparse # python 2.7 & later
 import zlib
+import os
 
 __doc__ = "See https://github.com/userify/ucrypt"
 
@@ -62,30 +63,46 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Decrypt/Encrypt userify files.",
         epilog="Data will be read from STDIN and output to STDOUT.\n" +
-        "If no key is provided, one will be read from base_config.\n" +
-        "(base_config file location defaults to /opt/userify-server/base_config.cfg.)")
+        "If no key is provided, one will be read from keyfile.\n" +
+        "(keyfile file location defaults to /opt/userify-server/base_config.cfg.)" +
+        "If both keygen and keyfile arguments are created, a keyfile will be securely created.")
     parser.add_argument("-i", "--infile", help="input_file or - for STDIN", action="store")
     parser.add_argument("-o", "--outfile", help="output_file or - for STDOUT", action="store")
     parser.add_argument("--keygen", help="generate an encryption key.", action="store_true")
     parser.add_argument("--key", help="provide encryption/decryption key.", action="store")
-    parser.add_argument("--base_config", help="provide path to base_config.cfg.", action="store")
+    parser.add_argument("--keyfile", help="provide path to keyfile.", action="store")
     args = parser.parse_args()
 
-    if args.base_config:
-        bc_fn = args.base_config
+    if args.keyfile:
+        bc_fn = args.keyfile
     else:
         bc_fn = "/opt/userify-server/base_config.cfg"
 
     if args.keygen:
-        # generate secretkey
-        print(Ucrypt().keygen())
+        hexkey = Ucrypt().keygen()
+        if args.keyfile:
+            # securely write file.
+            open(args.keyfile, "w").close()
+            uid = os.getuid()
+            gid = os.getgid()
+            os.chown(args.keyfile, uid, gid)
+            os.chmod(args.keyfile, 0o660)
+            open(args.keyfile, "a").write(
+                '{"crypto_key": "%s"}' % hexkey)
+        else:
+            print(hexkey)
         sys.exit(0)
 
     hexkey = args.key
     if not hexkey:
         if os.path.isfile(bc_fn):
-            base_config = load(open(bc_fn))
-            hexkey = base_config["crypto_key"]
+            keyfile = open(bc_fn).read()
+            try:
+                # try to parse.
+                hexkey = loads(keyfile)["crypto_key"]
+            except:
+                # ok, just a string..
+                hexkey = keyfile.strip()
         else:
             die(bc_fn + " does not exist and no key was provided.\n" +
                 "Do you need to generate a key? Try:\n\n   %s --help" % sys.argv[0])
