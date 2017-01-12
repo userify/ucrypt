@@ -22,7 +22,7 @@ This utility can be used in your own scripts to securely encrypt or decrypt file
     # The project's main homepage.
     url='https://github.com/userify/ucrypt',
 
-    download_url="https://github.com/userify/ucrypt/archive/master.tar.gz",
+    download_url="https://github.com/userify/ucrypt/tarball/0.1",
 
     # Author details
     author='Userify Corporation',
