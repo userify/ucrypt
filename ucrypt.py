@@ -73,27 +73,28 @@ if __name__ == "__main__":
     parser.add_argument("--keyfile", help="provide path to keyfile.", action="store")
     args = parser.parse_args()
 
-    if args.keyfile:
-        bc_fn = args.keyfile
-    else:
-        bc_fn = "/opt/userify-server/base_config.cfg"
+    bc_fn = "/opt/userify-server/base_config.cfg"
 
     if args.keygen:
         hexkey = Ucrypt().keygen()
-        if args.keyfile:
+        keyfile = args.keyfile.strip()
+        if keyfile and keyfile != bc_fn::
             # securely write file.
-            open(args.keyfile, "w").close()
+            open(keyfile, "w").close()
             uid = os.getuid()
             gid = os.getgid()
-            os.chown(args.keyfile, uid, gid)
-            os.chmod(args.keyfile, 0o660)
-            open(args.keyfile, "a").write(
+            os.chown(keyfile, uid, gid)
+            os.chmod(keyfile, 0o660)
+            open(keyfile, "a").write(
                 '{"crypto_key": "%s"}' % hexkey)
         else:
             print(hexkey)
         sys.exit(0)
 
     hexkey = args.key
+    if args.keyfile:
+        bc_fn = args.keyfile
+
     if not hexkey:
         if os.path.isfile(bc_fn):
             keyfile = open(bc_fn).read()
