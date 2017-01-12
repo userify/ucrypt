@@ -15,17 +15,15 @@ Additional warnings: BACKUP BACKUP! By using these tools, you take full responsi
 
 ## INSTALLATION
 
-    sudo pip install pynacl
-    curl -# https://usrfy.io/ucrypt.py | sudo tee /usr/bin/ucrypt.py >/dev/null
-    sudo chmod +x /usr/bin/ucrypt.py
+    sudo pip install ucrypt
 
 
 ## Help
 
-    # ucrypt.py --help
+    # ucrypt --help
 
-    usage: ucrypt.py [-h] [-i INFILE] [-o OUTFILE] [--keygen] [--key KEY]
-                     [--keyfile BASE_CONFIG]
+    usage: ucrypt [-h] [-i INFILE] [-o OUTFILE] [--keygen] [--key KEY]
+                  [--keyfile BASE_CONFIG]
 
     Decrypt/Encrypt files with NaCl.
 
@@ -66,16 +64,16 @@ Example Python usage:
 
 ## Ucrypt in your shell scripts
 
-Here's how to use ucrypt in your own scripts (after copying ucrypt.py to /usr/bin)
+Here's how to use ucrypt in your own scripts:
 
     # first, generate a secret key
-    ucrypt.py --keygen --keyfile mykey
+    ucrypt --keygen --keyfile mykey
 
     # encrypt something with the secret key
-    echo "bar" | ucrypt.py --keyfile mykey -o /tmp/bar.ucrypt
+    echo "bar" | ucrypt --keyfile mykey -o /tmp/bar.ucrypt
 
     # decrypt that file with the same key (prints bar)
-    ucrypt.py --keyfile mykey -i /tmp/bar.ucrypt
+    ucrypt --keyfile mykey -i /tmp/bar.ucrypt
 
 
 ### Example usage (with Userify server)
@@ -83,12 +81,12 @@ Here's how to use ucrypt in your own scripts (after copying ucrypt.py to /usr/bi
     UNAME=chris_spears
     DATAPATH=/opt/userify-server/data/
 
-    user_filename=$DATAPATH/$(sudo cat $DATAPATH/$UNAME:username | sudo ucrypt.py -i - -o - | jq -r .user_id):user
+    user_filename=$DATAPATH/$(sudo cat $DATAPATH/$UNAME:username | sudo ucrypt -i - -o - | jq -r .user_id):user
 
 
 To see the whole user record:
 
-    sudo ucrypt.py -i $user_filename | jq .
+    sudo ucrypt -i $user_filename | jq .
 
 See disable_mfa.sh for an example use script, or, to install and execute:
 
