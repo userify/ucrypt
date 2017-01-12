@@ -1,27 +1,17 @@
 # Userify UCRYPT
 
-### An encryption/compression utility for Userify data files.
+### An encryption/compression utility for data files.
 
-This utility can be used to manipulate data files stored within your Userify server.
-Install into /opt/userify-server/ or your path.
+This is a command-line tool and Python library to compress and decrypt/encrypt files with NaCl and gzip.
 
-Example usage:
-
-    UNAME=chris_spears
-    DATAPATH=/opt/userify-server/data/
-    UCRYPT=/opt/userify-server/ucrypt.py
-
-    user_filename=$DATAPATH/$(sudo cat $DATAPATH/$UNAME:username:content_type | sudo $UCRYPT -i - -o - | jq -r .user_id):user
+This utility can be used in your own scripts to securely encrypt or decrypt files. It can be also used to manipulate data files stored within your Userify server and includes some demonstration scripts.
 
 
-To see the whole user record:
+## INSTALLATION
 
-    sudo $UCRYPT -i $user_filename | jq .
-
-See disable_mfa.sh for an example use script, or, to install and execute:
-
-    curl -# https://usrfy.io/install_ucrypt.sh | sudo -sE
-    sudo /opt/userify-server/disable_mfa.sh
+    sudo pip install pynacl
+    curl -# https://usrfy.io/ucrypt.py | sudo tee /usr/bin/ucrypt.py >/dev/null
+    chmod +x /usr/bin/ucrypt.py
 
 
 ## Help
@@ -31,7 +21,7 @@ See disable_mfa.sh for an example use script, or, to install and execute:
     usage: ucrypt.py [-h] [-i INFILE] [-o OUTFILE] [--keygen] [--key KEY]
                      [--keyfile BASE_CONFIG]
 
-    Decrypt/Encrypt userify files.
+    Decrypt/Encrypt files with NaCl.
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -48,11 +38,13 @@ See disable_mfa.sh for an example use script, or, to install and execute:
     /userify-server/base_config.cfg.)
 
 
+
 ## Ucrypt in your own scripts
 
 Ucrypt both compresses (with zlib) and strongly encrypts (using libsodium) your data with secure keys. You can use this within your own programs as well. A very big thank you to the developers of libsodium, NaCl, and X25519.
 
 Ucrypt is released under the MIT license so please feel free to use in your own programs, both commercial and personal.
+
 
 
 ## Ucrypt in your Python scripts
@@ -78,6 +70,24 @@ Here's how to use ucrypt in your own scripts (after copying ucrypt.py to /usr/bi
 
     # decrypt that file with the same key (prints bar)
     ucrypt.py --keyfile mykey -i /tmp/bar.ucrypt
+
+
+### Example usage (with Userify server)
+
+    UNAME=chris_spears
+    DATAPATH=/opt/userify-server/data/
+
+    user_filename=$DATAPATH/$(sudo cat $DATAPATH/$UNAME:username:content_type | sudo ucrypt.py -i - -o - | jq -r .user_id):user
+
+
+To see the whole user record:
+
+    sudo ucrypt.py -i $user_filename | jq .
+
+See disable_mfa.sh for an example use script, or, to install and execute:
+
+    curl -# https://usrfy.io/install_ucrypt.sh | sudo -sE
+    sudo /opt/userify-server/disable_mfa.sh
 
 
 

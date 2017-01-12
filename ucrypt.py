@@ -61,10 +61,10 @@ class Ucrypt:
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description="Decrypt/Encrypt userify files.",
+    parser = argparse.ArgumentParser(description="Compress and decrypt/encrypt files with NaCl and gzip.",
         epilog="Data will be read from STDIN and output to STDOUT.\n" +
         "If no key is provided, one will be read from keyfile.\n" +
-        "(keyfile file location defaults to /opt/userify-server/base_config.cfg.)" +
+        "(keyfile file location defaults to /opt/userify-server/base_config.cfg.)\n" +
         "If both keygen and keyfile arguments are created, a keyfile will be securely created.")
     parser.add_argument("-i", "--infile", help="input_file or - for STDIN", action="store")
     parser.add_argument("-o", "--outfile", help="output_file or - for STDOUT", action="store")
@@ -78,7 +78,7 @@ if __name__ == "__main__":
     if args.keygen:
         hexkey = Ucrypt().keygen()
         keyfile = args.keyfile.strip()
-        if keyfile and keyfile != bc_fn::
+        if keyfile and keyfile != bc_fn:
             # securely write file.
             open(keyfile, "w").close()
             uid = os.getuid()
@@ -97,7 +97,12 @@ if __name__ == "__main__":
 
     if not hexkey:
         if os.path.isfile(bc_fn):
-            keyfile = open(bc_fn).read()
+            try:
+                keyfile = open(bc_fn).read()
+            except Exception, e:
+                parser.print_help()
+                print(e)
+                sys.exit(1)
             try:
                 # try to parse.
                 hexkey = loads(keyfile)["crypto_key"]

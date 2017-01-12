@@ -1,10 +1,10 @@
 #! /bin/bash -e
 
 DATAPATH=/opt/userify-server/data/
-UCRYPT=/opt/userify-server/ucrypt.py
+UCRYPT=ucrypt.py
 
 if [ ! -f $UCRYPT ]; then
-    echo "Please:\ncp -p ucrypt.py /opt/userify-server/"
+    echo "Please:\ncp -p ucrypt.py /usr/bin/"
     exit 1
 fi
 
@@ -19,7 +19,7 @@ fi
 
 user_id="$(sudo cat $UNAMEFILE | sudo $UCRYPT -i - -o - | jq -r .user_id)"
 user_filename=$DATAPATH/$user_id:user
-redis_keyname=user:/opt/userify-server/data/:$user_id:user::$user_id:
+redis_keyname=user:$DATAPATH:$user_id:user::$user_id:
 
 echo "Reviewing current MFA status for $UNAME ..."
 sudo $UCRYPT -i $user_filename | jq '.mfa'

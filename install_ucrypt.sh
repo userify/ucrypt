@@ -11,10 +11,7 @@ sudo which apt-get 2>/dev/null && sudo apt-get install -qqy jq
 
 # Install both binaries
 
-curl -# https://raw.githubusercontent.com/userify/ucrypt/master/ucrypt.py \
-    | sudo tee /opt/userify-server/ucrypt.py >/dev/null
+curl -# https://usrfy.io/ucrypt.py | sudo tee /usr/bin/ucrypt.py >/dev/null
+curl -# https://usrfy.io/disable_mfa.sh | sudo tee /opt/userify-server/disable_mfa.sh >/dev/null
 
-curl -# https://raw.githubusercontent.com/userify/ucrypt/master/disable_mfa.sh \
-    | sudo tee /opt/userify-server/disable_mfa.sh >/dev/null
-
-chmod +x /opt/userify-server/disable_mfa.sh /opt/userify-server/ucrypt.py
+chmod +x /opt/userify-server/disable_mfa.sh /usr/bin/ucrypt.py
