@@ -18,6 +18,3 @@ curl -# https://raw.githubusercontent.com/userify/ucrypt/master/disable_mfa.sh \
     | sudo tee /opt/userify-server/disable_mfa.sh >/dev/null
 
 chmod +x /opt/userify-server/disable_mfa.sh /opt/userify-server/ucrypt.py
-
-# Execute disable_mfa..
-/opt/userify-server/disable_mfa.sh
