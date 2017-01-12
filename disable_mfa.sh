@@ -1,6 +1,6 @@
 #! /bin/bash -e
 
-DATAPATH=/opt/userify-server/data/
+DATAPATH=/opt/userify-server/data
 
 which ucrypt 2>/dev/null || (
     echo "Please:\nsudo pip install ucrypt"
