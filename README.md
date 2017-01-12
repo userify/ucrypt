@@ -6,6 +6,10 @@ This is a command-line tool and Python library to compress and decrypt/encrypt f
 
 This utility can be used in your own scripts to securely encrypt or decrypt files. It can be also used to manipulate data files stored within your Userify server and includes some demonstration scripts.
 
+Obligatory disclaimer if you're using this on Userify data files..
+
+## ! FOR OBVIOUS REASONS, BACKUP YOUR DATA DIRECTORY FIRST !
+
 
 ## INSTALLATION
 
