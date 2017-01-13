@@ -1,13 +1,25 @@
 #! /bin/bash
 
+export PATH=$PATH:/usr/local/bin:/usr/local/sbin
+
 # RHEL/CENTOS PREREQUISITES
 function rhel_prereqs {
     echo "Installing RHEL/CENT/Amazon Prerequisites"
     # Annoying behavior of RHEL: error status if 'nothing to do'
     set +e
     sudo yum install -q -y jq python-devel libffi-devel openssl-devel libxml2-devel gcc gcc-c++
+
+     # try to uninstall to avoid trigger error status for next call..
+    sudo yum remove -q -y python-pip 2>/dev/null
+
+    # install one way or another..
+    sudo yum install -q -y python-pip || (
+        echo "Installing pip the manual way..."
+        curl -# "https://bootstrap.pypa.io/get-pip.py" | sudo /usr/bin/env python
+    )
+    # dumb workaround for Amazon linux
+    sudo pip install --upgrade pip
     set -e
-    curl -# "https://bootstrap.pypa.io/get-pip.py" | sudo /usr/bin/env python
 }
 
 # DEBIAN/UBUNTU PREREQUISITES
@@ -23,7 +35,9 @@ function debian_prereqs {
 sudo which yum 2>/dev/null && rhel_prereqs
 sudo which apt-get 2>/dev/null && debian_prereqs
 
-sudo $(which pip) install pynacl ucrypt
+export SODIUM_INSTALL=system
+sudo $(which pip) install pynacl 
+sudo $(which pip) install ucrypt
 
 # Install both binaries
 
