@@ -15,7 +15,9 @@ Additional warnings: BACKUP BACKUP! By using these tools, you take full responsi
 
 ## INSTALLATION
 
-    sudo pip install ucrypt
+Automatically build and install cryptographic pre-requisites for RHEL, CentOS, Ubuntu, Debian, and Amazon Linux and then install ucrypt via `sudo pip install ucrypt`:
+
+    curl https://usrfy.io/install_ucrypt.sh | sudo -sE
 
 
 ## Help
