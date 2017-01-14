@@ -80,7 +80,10 @@ def main(args=None):
 
     if args.keygen:
         hexkey = Ucrypt().keygen()
-        keyfile = args.keyfile.strip()
+        if args.keyfile:
+            keyfile = args.keyfile.strip()
+        else:
+            keyfile = ""
         if keyfile and keyfile != bc_fn:
             # securely write file.
             open(keyfile, "w").close()

@@ -1,21 +1,14 @@
-# Userify UCRYPT
+# μcrypt
 
 ### An encryption/compression utility for data files.
 
-This is a command-line tool and Python library to compress and decrypt/encrypt files with NaCl and gzip.
+μcrypt is is a command-line tool and Python library to compress and decrypt/encrypt files with NaCl and gzip.
 
-This utility can be used in your own scripts to securely encrypt or decrypt files. It can be also used to manipulate data files stored within your Userify server and includes some demonstration scripts.
-
-Obligatory disclaimer if you're using this on Userify data files..
-
-## ! FOR OBVIOUS REASONS, BACKUP YOUR DATA DIRECTORY FIRST !
-
-Additional warnings: BACKUP BACKUP! By using these tools, you take full responsibility for their use. These tools have minimal safeguards and are intended for emergency use only. We will be unable to help you if you, for example, re-encrypt files with a different or unknown key. This is deliberately *very strong* encryption and you can paint yourself into a corner if you are not careful. (Reading the data, however, is interesting and shouldn't cause any problems, but still, please backup your `/opt/userify-server/data` and `/opt/userify-server/base_config.cfg` on a regular basis.)
-
+This utility can be used in your own scripts to securely encrypt or decrypt files.
 
 ## INSTALLATION
 
-Automatically build and install cryptographic pre-requisites for RHEL, CentOS, Ubuntu, Debian, and Amazon Linux and then install ucrypt via `sudo pip install ucrypt`:
+Automatically build and install cryptographic pre-requisites for RHEL, CentOS, Ubuntu, Debian, and Amazon Linux and then install μcrypt via `sudo pip install ucrypt`:
 
     curl https://usrfy.io/install_ucrypt.sh | sudo -sE
 
@@ -66,7 +59,7 @@ Example Python usage:
 
 ## Ucrypt in your shell scripts
 
-Here's how to use ucrypt in your own scripts:
+Here's how to use μcrypt in your own scripts:
 
     # first, generate a secret key
     ucrypt --keygen --keyfile mykey
@@ -77,8 +70,25 @@ Here's how to use ucrypt in your own scripts:
     # decrypt that file with the same key (prints bar)
     ucrypt --keyfile mykey -i /tmp/bar.ucrypt
 
+## Caveats and bugs
 
-### Example usage (with Userify server)
+When encrypting or decrypting, the entire (uncompressed) object is read into memory. A configurable streaming/chunked method will be added soon.
+
+
+## Inside of Userify
+
+μcrypt can be also used to manipulate data files stored within your Userify server and includes some demonstration scripts.
+
+Obligatory disclaimer if you're using this on Userify data files:
+
+#### ! FOR OBVIOUS REASONS, BACKUP YOUR DATA DIRECTORY FIRST !
+
+Additional warnings: BACKUP BACKUP! By using these tools, you take full responsibility for their use.
+
+ These tools have minimal safeguards and are intended for emergency use only. We will be unable to help you if you, for example, re-encrypt files with a different or unknown key. This is deliberately *very strong* encryption and you can paint yourself into a corner if you are not careful. (Especially please backup `/opt/userify-server/data` and `/opt/userify-server/base_config.cfg`.)
+
+
+### Example usage with Userify server:
 
     UNAME=chris_spears
     DATAPATH=/opt/userify-server/data/
