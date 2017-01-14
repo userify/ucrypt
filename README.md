@@ -38,15 +38,15 @@ Automatically build and install cryptographic pre-requisites for RHEL, CentOS, U
 
 
 
-## Ucrypt in your own scripts
+## μcrypt in your own scripts
 
-Ucrypt both compresses (with zlib) and strongly encrypts (using libsodium) your data with secure keys. You can use this within your own programs as well. A very big thank you to the developers of libsodium, NaCl, and X25519.
+μcrypt both compresses (with zlib) and strongly encrypts (using libsodium) your data with secure keys. You can use this within your own programs as well. A very big thank you to the developers of libsodium, NaCl, and X25519.
 
-Ucrypt is released under the MIT license so please feel free to use in your own programs, both commercial and personal.
+μcrypt is released under the MIT license so please feel free to use in your own programs, both commercial and personal.
 
 
 
-## Ucrypt in your Python scripts
+## μcrypt in your Python scripts
 
 Example Python usage:
 
@@ -57,7 +57,7 @@ Example Python usage:
     foo
 
 
-## Ucrypt in your shell scripts
+## μcrypt in your shell scripts
 
 Here's how to use μcrypt in your own scripts:
 
@@ -108,4 +108,3 @@ See disable_mfa.sh for an example use script, or, to install and execute:
 
 
 Copyright 2017 Userify Corporation
-
