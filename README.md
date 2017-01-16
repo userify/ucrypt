@@ -1,4 +1,4 @@
-# μcrypt
+# μcrypt <a href=https://userify.com/><img src="https://userify.com/logo-blue-on-white.png" align="right"></a>
 
 ### An encryption/compression utility for data files.
 
