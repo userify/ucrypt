@@ -2,9 +2,14 @@
 
 ### An encryption/compression utility for data files.
 
-μcrypt is is a command-line tool and Python library to compress and decrypt/encrypt files with NaCl and gzip.
+μcrypt is is a command-line tool and Python library that uses a shared key to compress and decrypt/encrypt files that wraps proven tools NaCl and gzip. It's designed to be fast and easy to install.
 
-This utility can be used in your own scripts to securely encrypt or decrypt files.
+This utility can be used in your own scripts to securely encrypt or decrypt files, or embedded within your server for encrypting and decrypting files that are stored on untrusted or remote media (such as S3).
+
+Compared to OpenSSL and GPG for symmetric encryption, μcrypt is built on a modern but proven foundation (NaCl, which is based on X25519 by Daniel J. Bernstein) and designed to have sane defaults for its chosen use case. μcrypt is designed to be extremely simple to use and hard to break.
+
+μcrypt is designed for relatively small files, such as JSON documents, etc. Because it symmetrically encrypts in RAM for speed and consistency, you can break large files into smaller ones with the unix `split` command, or switch to a tool that is designed for larger files.
+
 
 ## INSTALLATION
 
