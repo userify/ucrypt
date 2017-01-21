@@ -1,5 +1,7 @@
 #! /bin/bash -e
 
+# this is a sample script designed for use with userify.
+
 DATAPATH=/opt/userify-server/data
 
 which ucrypt 2>/dev/null || (
