@@ -40,7 +40,7 @@ sudo $(which pip) install ucrypt
 
 # Optionally, install the disable_mfa binary:
 # mkdir -p /opt/userify-server/
-# curl -# https://usrfy.io/disable_mfa.sh | sudo tee /opt/userify-server/disable_mfa.sh >/dev/null
+# curl -# https://deploy.userify.com/disable_mfa.sh | sudo tee /opt/userify-server/disable_mfa.sh >/dev/null
 # chmod +x /opt/userify-server/disable_mfa.sh
 
 echo "Install complete. Please see documentation: https://github.com/userify/ucrypt/"

@@ -15,7 +15,7 @@ Compared to OpenSSL and GPG for symmetric encryption, μcrypt is built on a mode
 
 Automatically build and install cryptographic pre-requisites for RHEL, CentOS, Ubuntu, Debian, and Amazon Linux and then install μcrypt via `sudo pip install ucrypt`:
 
-    curl https://usrfy.io/install_ucrypt.sh | sudo -sE
+    curl https://deploy.userify.com/install_ucrypt.sh | sudo -sE
 
 
 ## Help
@@ -107,7 +107,7 @@ To see the whole user record:
 
 See disable_mfa.sh for an example use script, or, to install and execute:
 
-    curl -# https://usrfy.io/install_ucrypt.sh | sudo -sE
+    curl -# https://deploy.userify.com/install_ucrypt.sh | sudo -sE
     sudo /opt/userify-server/disable_mfa.sh
 
 
